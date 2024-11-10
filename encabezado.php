@@ -5,7 +5,13 @@
     <a href="pedidos.php">Pedidos</a>
     <a href="productos.php">Productos</a>
     <a href="vendedores.php">Vendedores</a>
-    <a href="login.php" class="login">Login</a>
+<?php
+if (isset($_SESSION['username'])) {
+    echo '<a href="logout.php" class="login">Logout</a>';
+} else {
+    echo '<a href="login.php" class="login">Login</a>';
+}
+?>
 </div>
 
 <style>
