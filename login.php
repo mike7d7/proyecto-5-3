@@ -1,12 +1,12 @@
 <?php
-session_start(); // Start the session to store user info
+session_start();  // Start the session to store user info
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
 
-    // TODO replace with db connection 
+    // TODO replace with db connection
     $valid_username = 'admin';
     $valid_password = 'admin';
 
@@ -42,12 +42,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="username">Username:</label>
             <input type="text" name="username" id="username" required>
         </div>
+        <hr>
         <div>
             <label for="password">Password:</label>
             <input type="password" name="password" id="password" required>
         </div>
         <hr>
+        <hr>
         <section>
+            <button type="button" onclick="history.back()" style="background-color: #d20f39; border-color: #d20f39;">Cancel</button>
             <button type="submit">Login</button>
         </section>
     </form>
