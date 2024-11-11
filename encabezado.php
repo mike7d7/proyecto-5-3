@@ -1,12 +1,8 @@
 <div class="encabezado">
-    <a href="cias_envio.php">Compañías de envío</a>
-    <a href="clientes.php">Clientes</a>
-    <a href="incluye.php">Productos Vendidos</a>
-    <a href="pedidos.php">Pedidos</a>
     <a href="productos.php">Productos</a>
-    <a href="vendedores.php">Vendedores</a>
 <?php
 if (isset($_SESSION['user_id'])) {
+    echo '<a href="pedidos.php">Pedidos</a>';
     echo '<a href="logout.php" class="login">Logout</a>';
 } else {
     echo '<a href="login.php" class="login">Login</a>';
