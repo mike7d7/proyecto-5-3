@@ -6,7 +6,7 @@
     <a href="productos.php">Productos</a>
     <a href="vendedores.php">Vendedores</a>
 <?php
-if (isset($_SESSION['username'])) {
+if (isset($_SESSION['user_id'])) {
     echo '<a href="logout.php" class="login">Logout</a>';
 } else {
     echo '<a href="login.php" class="login">Login</a>';

@@ -3,18 +3,24 @@ session_start();  // Start the session to store user info
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'] ?? '';
-    $password = $_POST['password'] ?? '';
+    $username = htmlspecialchars($_POST['username']) ?? '';
+    $password = htmlspecialchars($_POST['password']) ?? '';
 
-    // TODO replace with db connection
-    $valid_username = 'admin';
-    $valid_password = 'admin';
+    $db = new SQLite3('db.db', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
+    $db->enableExceptions(true);
+    $statement = $db->prepare("SELECT id,password FROM usuarios WHERE username = '$username'");
+    $result = $statement->execute();
 
-    if ($username === $valid_username && $password === $valid_password) {
-        $_SESSION['username'] = $username;
+    $valid_password = $result->fetchArray(SQLITE3_NUM);
 
-        header('Location: index.php');
-        exit;
+    if ($valid_password) {
+        if (password_verify($password, $valid_password[1])) {
+            $_SESSION['user_id'] = $valid_password[0];
+            header('Location: index.php');
+            exit;
+        } else {
+            $error_message = 'Invalid username or password.';
+        }
     } else {
         $error_message = 'Invalid username or password.';
     }
