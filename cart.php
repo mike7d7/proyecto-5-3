@@ -54,6 +54,22 @@ if (!isset($_SESSION['cart'])) {
         echo "</tr>\n";
         echo '</table>';
 
+        if ($_SESSION['cart']) {
+            echo '<hr>';
+            echo '<h2>Sucursal</h2>';
+            $statement3 = $db->prepare('SELECT nombre, direccion FROM sucursales');
+            $result3 = $statement3->execute();
+            $verify_array = [];
+            while ($variable3 = $result3->fetchArray(SQLITE3_NUM)) {
+                $verify_array[] = $variable3[0] . ' - ' . $variable3[1];
+            }
+            echo '<select name="' . 'Sucursal' . '" id="cars"required>';
+            foreach ($verify_array as $key => $value) {
+                echo "<option value='$key + 1'>$value</option>";
+            }
+            echo '</select>';
+        }
+
     ?>
     <hr>
     <hr>
