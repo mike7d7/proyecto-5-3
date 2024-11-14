@@ -32,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         document.getElementById('submitBtn').onclick = function() {
           var quantity = input.value;
           if (quantity > 0) {
-            alert('Added ' + quantity + ' units of product ' + productId + ' to the cart.');
             overlay.style.display = 'none';
             popup.style.display = 'none';
           } else {
