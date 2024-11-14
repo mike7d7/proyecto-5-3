@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -21,9 +24,10 @@ session_start();
 
         echo '<h2>Carrito de compras</h2>';
         echo "<table border='1'>\n";
-        echo "<tr><th>Producto</th><th>Cantidad</th><th>Subtotal</th></tr>\n";
+        echo "<tr><th>Producto</th><th>Cantidad (L)</th><th>Subtotal</th></tr>\n";
 
         $total = 0;
+        $index = 0;
         foreach ($_SESSION['cart'] as $row) {
             $statement = $db->prepare("SELECT descripcion FROM productos WHERE id = $row[0]");
             $result = $statement->execute();
@@ -35,9 +39,11 @@ session_start();
             echo '<td>' . htmlspecialchars($variable[0]) . "</td>\n";
             echo '<td>' . htmlspecialchars($row[1]) . "</td>\n";
             echo '<td>$' . htmlspecialchars($variable2[0] * $row[1]) . "</td>\n";
+            echo "<td><button onclick=\"window.location.href='eliminar_carrito.php?index=$index';\">Eliminar</button></td>";
             echo "</tr>\n";
             $total += $variable2[0] * $row[1];
             $result->finalize();
+            $index++;
         }
         echo '</table>';
         echo '<hr>';
