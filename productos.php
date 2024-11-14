@@ -1,5 +1,14 @@
 <?php
 session_start();
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $productId = $_POST['idproducto'];
+    $quantity = $_POST['quantity'];
+    array_push($_SESSION['cart'], [$productId, $quantity]);
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -9,27 +18,21 @@ session_start();
     <title>Actividad 4</title>
     <link rel="stylesheet" href="style.css" />
     <script>
-      // Function to open the popup when the button is clicked
       function openPopup(productId) {
-        // Create a popup (using a simple modal)
         var popup = document.getElementById('popup');
         var overlay = document.getElementById('overlay');
         var input = document.getElementById('quantity');
-        
-        // Show the popup and overlay
+
         overlay.style.display = 'block';
         popup.style.display = 'block';
 
-        // Reset the input field
         input.value = '';
+        document.getElementById("idproducto").value = productId
 
-        // When the submit button is clicked
         document.getElementById('submitBtn').onclick = function() {
           var quantity = input.value;
           if (quantity > 0) {
-            // Handle the quantity submission (e.g., add to cart)
             alert('Added ' + quantity + ' units of product ' + productId + ' to the cart.');
-            // Close the popup
             overlay.style.display = 'none';
             popup.style.display = 'none';
           } else {
@@ -38,7 +41,6 @@ session_start();
         };
       }
 
-      // Close the popup if the overlay is clicked
       function closePopup() {
         var overlay = document.getElementById('overlay');
         var popup = document.getElementById('popup');
@@ -54,30 +56,30 @@ session_start();
     <?php require_once ('encabezado.php'); ?>
 
     <?php
-    $db = new SQLite3('db.db', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
-    $db->enableExceptions(true);
+        $db = new SQLite3('db.db', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
+        $db->enableExceptions(true);
 
-    $statement = $db->prepare('SELECT * FROM "productos"');
-    $result = $statement->execute();
-    $title = 'ciasEnvio';
+        $statement = $db->prepare('SELECT * FROM "productos"');
+        $result = $statement->execute();
+        $title = 'ciasEnvio';
 
-    echo '<h2>Listado de productos</h2>';
-    echo "<table border='1'>\n";
-    echo "<tr><th>Descripción</th><th>Precio por litro (MXN)</th></tr>\n";
+        echo '<h2>Listado de productos</h2>';
+        echo "<table border='1'>\n";
+        echo "<tr><th>Descripción</th><th>Precio por litro (MXN)</th></tr>\n";
 
-    while ($row = $result->fetchArray(SQLITE3_NUM)) {
-        echo "<tr>\n";
-        echo '<td>' . htmlspecialchars($row[1]) . "</td>\n";
-        echo '<td>' . htmlspecialchars($row[2]) . "</td>\n";
-        echo '<td style="width: 200px">';
-        echo "<button onclick='openPopup(" . $row[0] . ")'>Agregar al carrito</button>";
-        echo '</td>';
-        echo "</tr>\n";
-    }
+        while ($row = $result->fetchArray(SQLITE3_NUM)) {
+            echo "<tr>\n";
+            echo '<td>' . htmlspecialchars($row[1]) . "</td>\n";
+            echo '<td>' . htmlspecialchars($row[2]) . "</td>\n";
+            echo '<td style="width: 200px">';
+            echo "<button onclick='openPopup(" . $row[0] . ")'>Agregar al carrito</button>";
+            echo '</td>';
+            echo "</tr>\n";
+        }
 
-    echo "</table>\n";
+        echo "</table>\n";
 
-    $result->finalize();
+        $result->finalize();
     ?>
 
     <!-- Popup (modal) for quantity input -->
@@ -85,9 +87,12 @@ session_start();
     <div id="popup">
       <h3>Ingrese la cantidad</h3>
       <label for="quantity">Cantidad:</label>
-      <input type="number" id="quantity" min="1" step="0.01" required />
-      <button id="submitBtn">Agregar</button>
+      <form action="productos.php" method="POST">
+      <input type='hidden' name='idproducto' id='idproducto' value='" . $row['name'] . "'>
+      <input type="number" name="quantity" id="quantity" min="1" step="0.01" required />
+      <input type="submit" name="submitBtn" id="submitBtn" value="Submit"/>
       <button onclick="closePopup()">Cancelar</button>
+      </form>
     </div>
 
     <hr>

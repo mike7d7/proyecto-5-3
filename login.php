@@ -40,11 +40,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <main>
     <form action="login.php" method="post">
         <h1>Login</h1>
-        
+
         <?php if (isset($error_message)): ?>
             <div style="color: red;"><?= htmlspecialchars($error_message) ?></div>
         <?php endif; ?>
-        
+
         <div>
             <label for="username">Username:</label>
             <input type="text" name="username" id="username" required>
