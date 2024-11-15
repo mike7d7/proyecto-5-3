@@ -63,22 +63,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $title = 'ciasEnvio';
 
         echo '<h2>Listado de productos</h2>';
-        echo "<table border='1'>\n";
-        echo "<tr><th>Descripción</th><th>Precio por litro (MXN)</th></tr>\n";
+        echo "<table border='1'>";
+        echo '<tr><th>Descripción</th><th>Precio por litro (MXN)</th></tr>';
 
         while ($row = $result->fetchArray(SQLITE3_NUM)) {
-            echo "<tr>\n";
-            echo '<td>' . htmlspecialchars($row[1]) . "</td>\n";
-            echo '<td>' . htmlspecialchars($row[2]) . "</td>\n";
+            echo '<tr>';
+            echo '<td>' . htmlspecialchars($row[1]) . '</td>';
+            echo '<td>' . htmlspecialchars($row[2]) . '</td>';
             if (isset($_SESSION['user_id'])) {
                 echo '<td style="width: 200px">';
                 echo "<button onclick='openPopup(" . $row[0] . ")'>Agregar al carrito</button>";
                 echo '</td>';
             }
-            echo "</tr>\n";
+            echo '</tr>';
         }
 
-        echo "</table>\n";
+        echo '</table>';
 
         $result->finalize();
     ?>
