@@ -55,6 +55,7 @@ if (!isset($_SESSION['cart'])) {
         echo '</table>';
 
         if ($_SESSION['cart']) {
+            echo '<form action="comprar.php' . '" method="POST">';
             echo '<hr>';
             echo '<h2>Sucursal</h2>';
             $statement3 = $db->prepare('SELECT nombre, direccion FROM sucursales');
@@ -65,9 +66,13 @@ if (!isset($_SESSION['cart'])) {
             }
             echo '<select name="' . 'Sucursal' . '" id="cars"required>';
             foreach ($verify_array as $key => $value) {
-                echo "<option value='$key + 1'>$value</option>";
+                echo "<option value='$key'>$value</option>";
             }
             echo '</select>';
+            echo "<input type='hidden' name='total' value='" . $total . "'>";
+            echo '<hr>';
+            echo '<button type="submit">Comprar</button>';
+            echo '</form>';
         }
 
     ?>
