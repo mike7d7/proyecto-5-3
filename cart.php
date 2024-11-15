@@ -3,6 +3,11 @@ session_start();
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $index = $_POST['idproducto'];
+    $quantity = $_POST['quantity'];
+    $_SESSION['cart'][$index][1] = $quantity;
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -37,7 +42,7 @@ if (!isset($_SESSION['cart'])) {
             $variable2 = $result2->fetchArray(SQLITE3_NUM);
             echo "<tr>\n";
             echo '<td>' . htmlspecialchars($variable[0]) . "</td>\n";
-            echo '<td>' . htmlspecialchars($row[1]) . "</td>\n";
+            echo '<td><form action="cart.php" method="POST">' . '<input type="hidden" name="idproducto" id="idproducto" value="' . $index . '">' . '<input type="number" name="quantity" id="quantity" min="1" step="0.01" value="' . htmlspecialchars($row[1]) . '" required /><input type="submit" hidden />' . "</form></td>\n";
             echo '<td>$' . htmlspecialchars($variable2[0] * $row[1]) . "</td>\n";
             echo "<td><button onclick=\"window.location.href='eliminar_carrito.php?index=$index';\">Eliminar</button></td>";
             echo "</tr>\n";
