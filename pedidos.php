@@ -40,6 +40,9 @@ while ($row = $result->fetchArray(SQLITE3_NUM)) {
         echo '<td style="background-color: #000000; !important"></td>';
         echo '<td>$' . $total . '</td>';
         echo '</tr>';
+        echo '<tr>';
+        echo '<td style="background-color: #000000; !important"></td>';
+        echo '</tr>';
         $total = 0;
     }
     echo '<tr>';
