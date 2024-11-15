@@ -26,10 +26,11 @@ echo '<h2>Listado de pedidos</h2>';
 echo "<table border='1'>";
 echo '<tr><th>Pedido</th><th>Producto</th><th>Sucursal</th><th>Dirección</th><th>Cantidad</th><th>Subtotal</th><th>Total</th></tr>';
 
-$pedido_previo = 1;
+$pedido_previo = 0;
+$first = true;
 $total = 0;
 while ($row = $result->fetchArray(SQLITE3_NUM)) {
-    if (htmlspecialchars($row[0]) != $pedido_previo) {
+    if (htmlspecialchars($row[0]) != $pedido_previo && !$first) {
         echo '<tr>';
         echo '<td style="background-color: #000000; !important"></td>';
         echo '<td style="background-color: #000000; !important"></td>';
@@ -52,6 +53,7 @@ while ($row = $result->fetchArray(SQLITE3_NUM)) {
     echo '</tr>';
     $total += htmlspecialchars($row[6]);
     $pedido_previo = htmlspecialchars($row[0]);
+    $first = false;
 }
 echo '<tr>';
 echo '<td style="background-color: #000000; !important"></td>';
