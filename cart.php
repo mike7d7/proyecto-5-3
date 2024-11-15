@@ -48,6 +48,24 @@ if (!isset($_SESSION['cart'])) {
         echo '</table>';
         echo '<hr>';
         echo '<table>';
+        echo "<tr><th>Subtotal</th></tr>\n";
+        echo "<tr>\n";
+        echo '<td>$' . $total . "</td>\n";
+        echo "</tr>\n";
+        echo '</table>';
+
+        $iva = $total * 0.16;
+        echo '<hr>';
+        echo '<table>';
+        echo "<tr><th>IVA</th></tr>\n";
+        echo "<tr>\n";
+        echo '<td>$' . $iva . "</td>\n";
+        echo "</tr>\n";
+        echo '</table>';
+
+        $total *= 1.16;
+        echo '<hr>';
+        echo '<table>';
         echo "<tr><th>Total</th></tr>\n";
         echo "<tr>\n";
         echo '<td>$' . $total . "</td>\n";
