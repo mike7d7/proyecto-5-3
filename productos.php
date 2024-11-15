@@ -70,9 +70,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "<tr>\n";
             echo '<td>' . htmlspecialchars($row[1]) . "</td>\n";
             echo '<td>' . htmlspecialchars($row[2]) . "</td>\n";
-            echo '<td style="width: 200px">';
-            echo "<button onclick='openPopup(" . $row[0] . ")'>Agregar al carrito</button>";
-            echo '</td>';
+            if (isset($_SESSION['user_id'])) {
+                echo '<td style="width: 200px">';
+                echo "<button onclick='openPopup(" . $row[0] . ")'>Agregar al carrito</button>";
+                echo '</td>';
+            }
             echo "</tr>\n";
         }
 
