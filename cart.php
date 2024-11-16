@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: productos.php');
+    die();
+}
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
