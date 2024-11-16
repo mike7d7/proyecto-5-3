@@ -1,10 +1,13 @@
 <div class="encabezado">
     <a href="productos.php">Productos</a>
 <?php
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
 if (isset($_SESSION['user_id'])) {
     echo '<a href="pedidos.php">Pedidos</a>';
     echo '<a href="logout.php" class="login">Logout</a>';
-    echo '<a href="cart.php" class="login">Carrito</a>';
+    echo '<a href="cart.php" class="login">Carrito (' . count($_SESSION['cart']) . ')</a>';
 } else {
     echo '<a href="login.php" class="login">Login</a>';
 }
