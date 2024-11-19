@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo '<td>' . htmlspecialchars($variable[0]) . "</td>\n";
             echo '<td><form action="cart.php" method="POST">' . '<input type="hidden" name="idproducto" id="idproducto" value="' . $index . '">' . '<input type="number" name="quantity" id="quantity" min="1" step="0.01" value="' . htmlspecialchars($row[1]) . '" required /><input type="submit" hidden />' . "</form></td>\n";
             echo '<td>$' . htmlspecialchars($variable2[0] * $row[1]) . "</td>\n";
-            echo "<td><button onclick=\"window.location.href='eliminar_carrito.php?index=$index';\">Eliminar</button></td>";
+            echo "<td><button style='background-color: #d20f39; border-color: #d20f39;' onclick=\"window.location.href='eliminar_carrito.php?index=$index';\">Eliminar</button></td>";
             echo "</tr>\n";
             $total += $variable2[0] * $row[1];
             $result->finalize();
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo '</select>';
             echo "<input type='hidden' name='total' value='" . $total . "'>";
             echo '<hr>';
-            echo '<button type="submit">Comprar</button>';
+            echo '<button type="submit" style="background-color: #40a02b; border-color: #40a02b;">Comprar</button>';
             echo '</form>';
         }
 

@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <input type='hidden' name='idproducto' id='idproducto' value='" . $row['name'] . "'>
       <input type="number" name="quantity" id="quantity" min="1" step="0.01" required />
       <input type="submit" name="submitBtn" id="submitBtn" value="Submit"/>
-      <button onclick="closePopup()">Cancelar</button>
+      <button onclick="closePopup()" style="background-color: #d20f39; border-color: #d20f39;">Cancelar</button>
       </form>
     </div>
 
