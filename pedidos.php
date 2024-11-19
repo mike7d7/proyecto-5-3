@@ -12,6 +12,7 @@ if (!isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pedidos</title>
 <link rel="stylesheet" href="style.css" />
+<link rel="icon" href="gasoline-svgrepo-com.svg" />
       </head>
   <body>
 <hr>
